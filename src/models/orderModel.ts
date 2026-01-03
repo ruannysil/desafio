@@ -1,15 +1,16 @@
-import { Document, model, Schema } from "mongoose";
+import { Document, model, Schema, Types } from "mongoose";
 
 export type OrderState = 'CREATED' | 'ANALYSIS' | 'COMPLETED';
 export type ServiceStatus = 'PENDING' | 'DONE';
 
 export interface IOrderService {
   name: string;
-  value: string;
+  value: number;
   status: ServiceStatus;
 }
 
 export interface IOrder extends Document {
+  user: Types.ObjectId;
   lab: String;
   patient: String;
   customer: String;
@@ -20,6 +21,11 @@ export interface IOrder extends Document {
 
 const OrderSchema = new Schema<IOrder>(
   {
+    user:{
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     lab: {
       type: String,
       required: true,
@@ -46,7 +52,7 @@ const OrderSchema = new Schema<IOrder>(
       {
         name: {
           type: String,
-          required: String,
+          required: true,
         },
         value: {
           type: Number,
