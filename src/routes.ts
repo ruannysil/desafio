@@ -5,6 +5,7 @@ import { AuthUserController } from './controllers/user/authUserContoller';
 import { isAuthenticated } from './middleware/isAuthenticated';
 import { CreateOrderController } from './controllers/order/createOrderController';
 import { GetOrderListController } from './controllers/order/getOrderListController';
+import { AdvanceOrderController } from './controllers/order/advanceOrderController';
 
 const router = Router();
 
@@ -18,5 +19,5 @@ router.get("/detail-user", isAuthenticated, new DetailUserController().handle);
 
 router.post("/create-order", isAuthenticated, new CreateOrderController().handle);
 router.get("/orders", isAuthenticated, new GetOrderListController().handle);
-
+router.patch("/orders/:id/advance", isAuthenticated, new AdvanceOrderController().handler);
 export {router};
